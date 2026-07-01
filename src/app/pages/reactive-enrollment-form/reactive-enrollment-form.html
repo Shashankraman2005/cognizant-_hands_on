@@ -1,0 +1,137 @@
+<div class="form-page-container">
+  <div class="form-card">
+    <div class="form-header">
+      <h2>Course Enrollment Request</h2>
+      <p class="form-subtitle">Reactive Form & Custom Validation (Hands-On 5)</p>
+    </div>
+
+    <!-- Success Message Block -->
+    <div *ngIf="submitted" class="form-success-banner">
+      <span class="success-icon">✓</span>
+      <div class="success-text">
+        <h4>Request Submitted!</h4>
+        <p>Enrollment request submitted successfully!</p>
+      </div>
+    </div>
+
+    <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()" novalidate class="portal-form">
+      
+      <!-- Student Name Field -->
+      <div class="form-group">
+        <label for="name">Full Name <span class="req">*</span></label>
+        <input 
+          type="text" 
+          id="name" 
+          formControlName="studentName"
+          placeholder="e.g. John Doe"
+          class="form-control"
+          [class.is-invalid]="enrollForm.get('studentName')?.invalid && enrollForm.get('studentName')?.touched"
+          [class.is-valid]="enrollForm.get('studentName')?.valid && enrollForm.get('studentName')?.touched">
+        <div class="error-msg" *ngIf="enrollForm.get('studentName')?.touched && enrollForm.get('studentName')?.invalid">
+          <span *ngIf="enrollForm.get('studentName')?.errors?.['required']">Name is required.</span>
+          <span *ngIf="enrollForm.get('studentName')?.errors?.['minlength']">Name must be at least 3 characters.</span>
+        </div>
+      </div>
+
+      <!-- Student Email Field -->
+      <div class="form-group">
+        <label for="email">Institutional Email <span class="req">*</span></label>
+        <div class="input-spinner-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="studentEmail"
+            placeholder="e.g. name@studentportal.edu"
+            class="form-control"
+            [class.is-invalid]="enrollForm.get('studentEmail')?.invalid && enrollForm.get('studentEmail')?.touched"
+            [class.is-valid]="enrollForm.get('studentEmail')?.valid && enrollForm.get('studentEmail')?.touched">
+          <div class="inner-spinner" *ngIf="isCheckingEmail"></div>
+        </div>
+        <div class="email-checking-text" *ngIf="isCheckingEmail">Checking email availability...</div>
+        <div class="error-msg" *ngIf="enrollForm.get('studentEmail')?.touched && enrollForm.get('studentEmail')?.invalid">
+          <span *ngIf="enrollForm.get('studentEmail')?.errors?.['required']">Email is required.</span>
+          <span *ngIf="enrollForm.get('studentEmail')?.errors?.['email']">Email format is invalid.</span>
+          <span *ngIf="enrollForm.get('studentEmail')?.errors?.['emailTaken']">Email is already taken.</span>
+        </div>
+      </div>
+
+      <!-- Course ID Field (with custom validation) -->
+      <div class="form-group">
+        <label for="course-id">Primary Course Code / ID <span class="req">*</span></label>
+        <input 
+          type="text" 
+          id="course-id" 
+          formControlName="courseId"
+          placeholder="e.g. CS-101 (Avoid XX prefixes)"
+          class="form-control"
+          [class.is-invalid]="enrollForm.get('courseId')?.invalid && enrollForm.get('courseId')?.touched"
+          [class.is-valid]="enrollForm.get('courseId')?.valid && enrollForm.get('courseId')?.touched">
+        <div class="error-msg" *ngIf="enrollForm.get('courseId')?.touched && enrollForm.get('courseId')?.invalid">
+          <span *ngIf="enrollForm.get('courseId')?.errors?.['required']">Course Code is required.</span>
+          <span *ngIf="enrollForm.get('courseId')?.errors?.['noCourseCode']">Course code starting with XX is not allowed.</span>
+        </div>
+      </div>
+
+      <!-- Preferred Semester Field -->
+      <div class="form-group">
+        <label for="semester">Preferred Semester <span class="req">*</span></label>
+        <select 
+          id="semester" 
+          formControlName="preferredSemester"
+          class="form-select">
+          <option value="Odd">Odd Semester</option>
+          <option value="Even">Even Semester</option>
+        </select>
+      </div>
+
+      <!-- Additional Courses Section (FormArray) -->
+      <div class="form-array-section">
+        <div class="array-header">
+          <label>Additional Courses / Electives</label>
+          <button type="button" class="array-add-btn" (click)="addCourse()">+ Add Course</button>
+        </div>
+        
+        <div class="form-array-container" formArrayName="additionalCourses">
+          <div *ngFor="let ctrl of additionalCourses.controls; let i = index" class="form-array-row">
+            <input 
+              [formControlName]="i" 
+              class="form-control" 
+              placeholder="Elective Code/ID (e.g. CS-105)">
+            <button type="button" class="array-remove-btn" (click)="removeCourse(i)">Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agree to Terms Checkbox -->
+      <div class="form-group-checkbox">
+        <label class="checkbox-container">
+          <input 
+            type="checkbox" 
+            formControlName="agreeToTerms">
+          <span class="custom-checkbox"></span>
+          <span class="checkbox-label">I agree to the academic terms and honor code <span class="req">*</span></span>
+        </label>
+        <div class="error-msg" *ngIf="enrollForm.get('agreeToTerms')?.touched && enrollForm.get('agreeToTerms')?.invalid">
+          <span *ngIf="enrollForm.get('agreeToTerms')?.errors?.['required']">You must accept the terms before enrolling.</span>
+        </div>
+      </div>
+
+      <!-- Buttons Row -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="form-btn btn-sec" 
+          (click)="resetForm()">
+          Reset Form
+        </button>
+        <button 
+          type="submit" 
+          class="form-btn btn-pri" 
+          [disabled]="enrollForm.invalid">
+          Submit Enrollment
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

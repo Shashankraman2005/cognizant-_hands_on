@@ -1,0 +1,50 @@
+<div class="course-list-page">
+  <div class="page-header-row">
+    <div>
+      <h2>Available Courses</h2>
+      <p class="section-desc">Select and enroll in your desired courses below.</p>
+    </div>
+    <div class="action-toolbar" *ngIf="!(loading$ | async)">
+      <button class="action-btn btn-add" (click)="addMockCourse()">+ Add Course</button>
+    </div>
+  </div>
+
+  <!-- Real-time search query parameter input (Hands-On 7) -->
+  <div class="search-bar-row" *ngIf="!(loading$ | async)">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      (ngModelChange)="onSearchChange()" 
+      placeholder="🔍 Search courses by name or code..." 
+      class="search-bar-input">
+  </div>
+
+  <!-- Loading State Spinner from NgRx -->
+  <div *ngIf="loading$ | async" class="loader-container">
+    <div class="spinner-glow">
+      <div class="spinner"></div>
+    </div>
+    <p class="loader-text">Fetching course catalogs...</p>
+  </div>
+
+  <!-- Course Card Grid using NgRx Store async pipeline -->
+  <div class="courses-grid" *ngIf="!(loading$ | async) && ((filteredCourses$ | async) || []).length > 0; else noCourses">
+    <app-course-card 
+      *ngFor="let c of (filteredCourses$ | async); trackBy: trackByCourseId" 
+      [course]="c" 
+      [appHighlight]="'rgba(99, 102, 241, 0.12)'"
+      (viewDetailsRequested)="viewCourseDetails($event)">
+    </app-course-card>
+  </div>
+
+  <!-- Empty State Template -->
+  <ng-template #noCourses>
+    <div *ngIf="!(loading$ | async)" class="empty-container">
+      <div class="empty-icon-glow">
+        <span class="empty-icon">📂</span>
+      </div>
+      <h3>No Courses Available</h3>
+      <p>There are no courses matching your search criteria.</p>
+    </div>
+  </ng-template>
+</div>

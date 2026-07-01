@@ -1,0 +1,48 @@
+<div class="detail-page-container">
+  <div class="detail-card">
+    <div class="detail-header">
+      <button class="back-btn" (click)="goBack()">← Back to Courses</button>
+      <span class="detail-badge" *ngIf="course">{{ course.code }}</span>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-banner">
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="!course && !errorMessage" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading course details...</p>
+    </div>
+
+    <div *ngIf="course" class="course-info">
+      <h1>{{ course.name }}</h1>
+      
+      <div class="info-grid">
+        <div class="info-box">
+          <span class="info-lbl">Credits Value</span>
+          <span class="info-val">{{ course.credits | creditLabel }}</span>
+        </div>
+        <div class="info-box">
+          <span class="info-lbl">Grade Status</span>
+          <span class="info-val status" [ngClass]="course.gradeStatus">{{ course.gradeStatus }}</span>
+        </div>
+      </div>
+
+      <div class="students-section">
+        <h3>Class Roster (Enrolled Students)</h3>
+        <div *ngIf="enrolledStudents.length === 0" class="no-students">
+          No students currently enrolled in this section.
+        </div>
+        <ul *ngIf="enrolledStudents.length > 0" class="student-list">
+          <li *ngFor="let student of enrolledStudents" class="student-item">
+            <span class="student-avatar">{{ student.name.charAt(0) }}</span>
+            <div class="student-meta">
+              <span class="student-name">{{ student.name }}</span>
+              <span class="student-email">{{ student.email }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

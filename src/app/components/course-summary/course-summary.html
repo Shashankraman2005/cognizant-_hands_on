@@ -1,0 +1,32 @@
+<div class="summary-container">
+  <h3>Academic Progress Overview</h3>
+  <div class="summary-stats-grid">
+    <div class="summary-stat-box">
+      <span class="stat-num">{{ getTotalCredits() }}</span>
+      <span class="stat-lbl">Enrolled Credits</span>
+    </div>
+    <div class="summary-stat-box passed">
+      <span class="stat-num">{{ getPassedCount() }}</span>
+      <span class="stat-lbl">Passed Courses</span>
+    </div>
+    <div class="summary-stat-box failed">
+      <span class="stat-num">{{ getFailedCount() }}</span>
+      <span class="stat-lbl">Failed Courses</span>
+    </div>
+    <div class="summary-stat-box pending">
+      <span class="stat-num">{{ getPendingCount() }}</span>
+      <span class="stat-lbl">Pending Courses</span>
+    </div>
+  </div>
+
+  <div class="enrolled-list-section" *ngIf="getEnrolledCoursesList().length > 0">
+    <h4>Enrolled Courses Details</h4>
+    <div class="enrolled-mini-cards">
+      <div class="mini-card" *ngFor="let c of getEnrolledCoursesList()">
+        <span class="mini-code">{{ c.code }}</span>
+        <span class="mini-name">{{ c.name }}</span>
+        <span class="mini-status" [ngClass]="c.gradeStatus">{{ c.gradeStatus }}</span>
+      </div>
+    </div>
+  </div>
+</div>

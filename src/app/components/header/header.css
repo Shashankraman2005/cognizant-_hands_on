@@ -1,0 +1,64 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(18, 24, 36, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  color: white;
+  padding: 18px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.navbar h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
+  transition: opacity var(--transition-fast);
+}
+
+.navbar h2:hover {
+  opacity: 0.9;
+}
+
+ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+  align-items: center;
+}
+
+li {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  transition: all var(--transition-normal);
+  border-radius: var(--radius-md);
+}
+
+li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 8px 16px;
+  border-radius: inherit;
+}
+
+li:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+li.active {
+  color: var(--text-primary);
+  background: rgba(99, 102, 241, 0.15);
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.1);
+}

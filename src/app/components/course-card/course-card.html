@@ -1,0 +1,40 @@
+<div class="card-container" [ngClass]="cardClasses" [ngStyle]="{'border-left': '6px solid ' + getBorderColor()}">
+  <div class="card-header">
+    <span class="course-code">{{ course.code }}</span>
+    <span class="course-credits">{{ course.credits | creditLabel }}</span>
+  </div>
+  
+  <div class="card-body">
+    <h3 class="course-title">{{ course.name }}</h3>
+    <div class="card-meta">
+      <span class="course-id">ID: {{ course.id }}</span>
+      
+      <!-- Grade Status Badges via Switch Case -->
+      <div [ngSwitch]="course.gradeStatus" class="grade-badge-container">
+        <span *ngSwitchCase="'passed'" class="status-badge-pill passed">Passed</span>
+        <span *ngSwitchCase="'failed'" class="status-badge-pill failed">Failed</span>
+        <span *ngSwitchCase="'pending'" class="status-badge-pill pending">Pending</span>
+      </div>
+    </div>
+
+    <!-- Expanded content panels -->
+    <div class="expanded-details" *ngIf="isExpanded">
+      <div class="divider"></div>
+      <p class="detail-item"><strong>Instructor:</strong> Prof. Elizabeth Vance</p>
+      <p class="detail-item"><strong>Schedule:</strong> Mon/Wed • 10:00 AM - 11:30 AM</p>
+      <p class="detail-desc">A comprehensive walkthrough including deep-dives, hands-on tasks, and peer-reviewed assignments.</p>
+    </div>
+  </div>
+  
+  <div class="card-actions">
+    <button class="details-toggle-btn" (click)="toggleDetails()">
+      {{ isExpanded ? 'Hide Details' : 'Quick Info' }}
+    </button>
+    <button class="info-toggle-btn" (click)="onViewDetailsClick()">
+      Full Info
+    </button>
+    <button class="enroll-btn" (click)="onEnrollToggle()">
+      {{ enrollmentService.isEnrolled(course.id) ? 'Unenroll' : 'Enroll Now' }}
+    </button>
+  </div>
+</div>

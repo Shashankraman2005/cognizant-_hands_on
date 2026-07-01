@@ -1,0 +1,36 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.global-http-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(99, 102, 241, 0.1);
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.spinner-line {
+  height: 100%;
+  width: 50%;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+  animation: loadingBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  border-radius: 2px;
+}
+
+@keyframes loadingBar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}

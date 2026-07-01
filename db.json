@@ -1,0 +1,15 @@
+{
+  "courses": [
+    { "id": 101, "name": "Introduction to Angular", "code": "CS-101", "credits": 3, "gradeStatus": "passed" },
+    { "id": 102, "name": "Web UI & UX Design", "code": "CS-102", "credits": 4, "gradeStatus": "failed" },
+    { "id": 103, "name": "Database Management Systems", "code": "CS-103", "credits": null, "gradeStatus": "passed" },
+    { "id": 104, "name": "Advanced JavaScript & ES6+", "code": "CS-104", "credits": 1, "gradeStatus": "pending" },
+    { "id": 105, "name": "Software Engineering Principles", "code": "CS-105", "credits": 3, "gradeStatus": "pending" }
+  ],
+  "students": [
+    { "id": 1, "name": "Shashank Raman", "email": "shashank.raman@studentportal.edu" }
+  ],
+  "enrollments": [
+    { "id": 1, "studentName": "Shashank Raman", "studentEmail": "shashank.raman@studentportal.edu", "courseId": 101 }
+  ]
+}

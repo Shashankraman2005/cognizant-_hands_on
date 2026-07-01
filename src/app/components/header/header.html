@@ -1,0 +1,21 @@
+<nav class="navbar">
+  <h2 routerLink="/home" style="cursor: pointer;">Student Course Portal</h2>
+
+  <ul>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a routerLink="/home">Home</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/courses">Courses</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/enroll">Enroll (TD)</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/enroll-reactive">Enroll (Reactive)</a>
+    </li>
+    <li routerLinkActive="active">
+      <a routerLink="/profile">Profile</a>
+    </li>
+  </ul>
+</nav>
