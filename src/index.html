@@ -6,6 +6,32 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    window.addEventListener('error', function(event) {
+      var errorDiv = document.getElementById('runtime-error-banner');
+      if (!errorDiv) {
+        errorDiv = document.createElement('div');
+        errorDiv.id = 'runtime-error-banner';
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.top = '10px';
+        errorDiv.style.left = '10px';
+        errorDiv.style.right = '10px';
+        errorDiv.style.background = '#ef4444';
+        errorDiv.style.color = '#fff';
+        errorDiv.style.padding = '20px';
+        errorDiv.style.zIndex = '999999';
+        errorDiv.style.fontFamily = 'monospace';
+        errorDiv.style.fontSize = '14px';
+        errorDiv.style.borderRadius = '8px';
+        errorDiv.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+        errorDiv.style.whiteSpace = 'pre-wrap';
+        errorDiv.style.maxHeight = '90vh';
+        errorDiv.style.overflowY = 'auto';
+        document.body.appendChild(errorDiv);
+      }
+      errorDiv.textContent = '🚨 Runtime Error: ' + event.message + '\n\nat ' + event.filename + ':' + event.lineno + ':' + event.colno + '\n\nStack:\n' + (event.error ? event.error.stack : 'No stack available');
+    });
+  </script>
 </head>
 <body>
   <app-root></app-root>

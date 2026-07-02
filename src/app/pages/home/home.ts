@@ -37,8 +37,17 @@ export class Home implements OnInit, OnDestroy {
    *   Any change in the input field updates the component property, and any programmatic change to the property updates the input field.
    */
 
+  coursesCount = 0;
+
   ngOnInit(): void {
     console.log('HomeComponent initialised — courses loaded');
+    this.courseService.getCourses().subscribe({
+      next: (courses) => {
+        this.coursesCount = courses.length;
+        this.cdr.markForCheck();
+      },
+      error: (err) => console.error('Failed to load courses count in home', err)
+    });
   }
 
   ngOnDestroy(): void {
