@@ -1,0 +1,2 @@
+This file was created on the GitNewBranch branch.
+It contains some basic feature specifications.
